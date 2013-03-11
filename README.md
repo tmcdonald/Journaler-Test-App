@@ -1,4 +1,4 @@
 Journaler-Test-App
 ==================
 
-A journal entry app I made trying out Play with Scala
+This is a journal entry app I created to try out Play with Scala.
