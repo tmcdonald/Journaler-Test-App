@@ -1,0 +1,44 @@
+@(entry: Option[JournalEntry], entryForm: Form[(anorm.Pk[Long],String,java.util.Date,Option[String])] )(implicit flash: Flash)
+
+@import helper._
+
+@main("Journal Entry Editing") {
+			@entryForm.errors.map { error =>
+				<div class="error message">
+					@error.message
+				</div>
+            }        	
+
+	@entry match {
+	  case None => {<h1>Create New Entry</h1>}
+	  case Some(value) => {<h1>Entry -- @value.label</h1>}
+    }
+
+    @entry match { 
+      case None => {}
+      case Some(value) => {
+        @form(routes.Application.deleteEntry(value.id.get)) {
+          <input class="deleteButton" type="submit" value="Delete this Entry">
+        }
+      } 
+    }
+
+    @entry match { 
+      case None => {
+        @form(routes.Application.createUpdateEntry(0), args = 'id -> "entryform") {
+          @inputText(entryForm("label"), '_label -> "Event Label", '_help -> "") 
+          @inputText(entryForm("date"), '_label -> "Event Date", '_help -> "Date must be in YYYY-MM-DD format.", '_error -> "")
+          @textarea(entryForm("comments"), '_label -> "Comments")
+          <input type="submit" value="Create">
+        }
+      }
+      case Some(value) => {
+        @form(routes.Application.createUpdateEntry(value.id.get), args = 'id -> "entryform") {
+          @inputText(entryForm("label"), '_label -> "Event Label", '_help -> "") 
+          @inputText(entryForm("date"), '_label -> "Event Date", '_help -> "Date must be in YYYY-MM-DD format.", '_error -> "")
+          @textarea(entryForm("comments"), '_label -> "Comments")
+          <input type="submit" value="Update">
+      }
+    }
+  } 
+}

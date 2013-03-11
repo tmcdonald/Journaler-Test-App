@@ -1,0 +1,23 @@
+@(entrySearchForm: Form[filters.JournalEntryFilter])(implicit flash: Flash)
+
+@import helper._
+@import filters._
+
+@main("Search Journal Entries") {
+
+  <h1>Journal Entry Search</h1>
+
+  @form(routes.Application.searchResults(), args = 'id -> "entrySearchForm") {
+			@entrySearchForm.errors.map { error =>
+				<div class="error message">
+					@error.message
+				</div>
+            }        	
+  
+    @inputText(entrySearchForm("label"), '_label -> "Event Label", '_help -> "") 
+    @inputText(entrySearchForm("dateFrom"), '_label -> "From Date", '_help -> "Date must be in YYYY-MM-DD format.")
+    @inputText(entrySearchForm("dateTo"), '_label -> "To Date", '_help -> "Date must be in YYYY-MM-DD format.")
+    @inputText(entrySearchForm("comments"), '_label -> "Comments")
+    <input type="submit" value="Search">
+  }
+}

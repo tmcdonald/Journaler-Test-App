@@ -1,0 +1,28 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+
+#Journaler
+
+#Authentication
+GET		/journaler/login			controllers.Authentication.login
+POST	/journaler/login			controllers.Authentication.authenticate
+GET		/journaler/logout			controllers.Authentication.logout
+GET		/journaler/createUser		controllers.Authentication.newUser
+POST	/journaler/createUser		controllers.Authentication.createNewUser
+
+GET		/journaler					controllers.Application.journaler
+GET		/journaler/					controllers.Application.journaler
+GET		/journaler/home				controllers.Application.journaler
+GET		/journaler/entry/view/:id	controllers.Application.newEntry(id: Long)
+POST	/journaler/entry/create/:id	controllers.Application.createUpdateEntry(id:Long)
+POST    /journaler/entry/delete/:id controllers.Application.deleteEntry(id: Long)
+GET		/journaler/entry/list		controllers.Application.list()
+GET		/journaler/entry/search 	controllers.Application.search
+POST	/journaler/entry/search 	controllers.Application.searchResults
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

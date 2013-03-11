@@ -1,0 +1,20 @@
+@(entries: List[JournalEntry])(implicit flash: Flash)
+
+@import helper._
+
+@main("Journal Entry List") {
+
+	@if(entries.isEmpty) {
+		<h1>No entries found.</h1>
+	} else {
+      <h1>@entries.size Entries Found</h1>
+
+      <ul>
+        @entries.map { entry =>
+          <li>
+            <a href="/journaler/entry/view/@entry.id">@entry.label</a>
+          </li>
+        }
+      </ul>
+    }
+}
